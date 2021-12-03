@@ -59,6 +59,22 @@ class Normalise(object):
         key_pts_copy = (key_pts_copy - 100.0) / 50.0
         
         return {'image': image_copy, 'keypoints': key_pts_copy}
+    
+class Normalise2(object):
+    
+    # output_size (tuple or int): Desired output size. If tuple, output is
+    #        matched to output_size. If int, smaller of image edges is matched
+    #        to output_size keeping aspect ratio the same.
+    
+    def __call__(self,sample):
+        image, key_pts = sample['image'], sample['keypoints']
+        
+        image_copy = np.copy(image)
+        key_pts_copy = np.copy(key_pts)
+        
+        image_copy = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
+        
+        return {'image': image_copy, 'keypoints': key_pts_copy}
 
 
 class Rescale(object):
